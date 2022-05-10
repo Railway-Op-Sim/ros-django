@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+}
+.route-tile {
+    margin-top: .5em;
+    border: 0.15em solid rgb(65, 65, 65);
+    box-shadow: 0.5em 0.5em 0.5em rgb(133, 133, 133);
+}
+.route-badge {
+    font-size: .6em;
+}
+.wider {
+    width: 25em !important;
+}
+#map {
+    height: 90%;
+}
+.card-button {
+    width: 100%;
+    color: gray;
+}
+
+#projects {
+    width: calc(100% - 0.5em);
+    margin-left: 0.5em;
+}

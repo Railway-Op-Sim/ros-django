@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ROS Project Explorer</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'explorer/project.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.5/viewer.js" integrity="sha512-lgj1oT2/0EWpv2oHNeqzWmINqNEfHR4kjvl5DXc6o8IPxoRLgMxhW6c/mZ/fnSFN+6ByTSabiq//GGbYMo/4Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.5/viewer.css" integrity="sha512-c7kgo7PyRiLnl7mPdTDaH0dUhJMpij4aXRMOHmXaFCu96jInpKc8sZ2U6lby3+mOpLSSlAndRtH6dIonO9qVEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/explorer/">ROS Project Explorer</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <b><a class="nav-link" href="/explorer/">Home</a></b>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="map.html">Map</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="about.html">About</a>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </nav>
+          
+            <div class="main">
+            {% if project %}
+                <div class="card">
+                    <div class="row card-body">
+                        <div class="col-sm-6">
+                            <h5 class="card-title">{{ project.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">By {{ project.author }}</h6>
+                            <p class="mb-auto">{{ project.short_desc|linebreaks }}</p>
+                            <div class="d-grid gap-2 card-body">
+                                <a class="btn btn-primary" href="{{ project.website_link }}" target="_blank">Website <i class="bi bi-box-arrow-up-right"></i></a>
+                                {% if project.collab %}
+                                    <a class="btn btn-primary" href="{{ project.collab_link }}" target="_blank">GitHub <i class="bi bi-box-arrow-up-right"></i></a>
+                                {% endif %}
+                                {% if project.on_wiki %}
+                                    <a class="btn btn-primary" href="{{ project.wiki_link }}" target="_blank">Wiki <i class="bi bi-box-arrow-up-right"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 cus-container">
+                            <img class="col-12" id="image" src="{{project.img_link}}" alt="Project Image"></img>
+                            <p class="onimage">Click image to zoom in.</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="card-body">
+                        <p>{{ project.desc|linebreaks }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <p>NO PROJECT</p>
+            {% endif %}
+            </div>
+            {% block script%}
+                <script src="{% static 'explorer/viewer.js' %}"></script>
+            {% endblock %}
+    </body>
+</html>
